@@ -1,0 +1,72 @@
+#include <zephyr/dt-bindings/lora/sx126x.h>
+
+/ {
+	aliases {
+		lora0 = &lora;
+	};
+};
+
+&spi1 {
+	compatible = "nordic,nrf-spi";
+	status = "okay";
+	cs-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+
+	pinctrl-0 = <&spi1_default>;
+	pinctrl-1 = <&spi1_sleep>;
+	pinctrl-names = "default", "sleep";
+	lora: lora@0 {
+		compatible = "semtech,sx1262";
+		reg = <0>;
+		reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+		busy-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+		rx-enable-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
+		dio1-gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+		dio2-tx-enable;
+		dio3-tcxo-voltage = <SX126X_DIO3_TCXO_3V3>;
+		tcxo-power-startup-delay-ms = <5>;
+		spi-max-frequency = <1000000>;
+	};
+};
+
+&spi2 {
+	compatible = "nordic,nrf-spim";
+	status = "okay";
+	cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+
+	pinctrl-0 = <&spi2_default>;
+	pinctrl-1 = <&spi2_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	sdhc0: sdhc@0 {
+		compatible = "zephyr,sdhc-spi-slot";
+		reg = <0>;
+		status = "okay";
+
+		mmc {
+			compatible = "zephyr,sdmmc-disk";
+			disk-name = "SD";
+			status = "okay";
+		};
+
+		spi-max-frequency = <25000000>;
+	};
+};
+
+&pinctrl {
+	spi2_default: spi2_default {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 0, 27)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 26)>,
+				<NRF_PSEL(SPIM_MISO, 0, 2)>;
+		};
+	};
+
+	spi2_sleep: spi2_sleep {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 0, 27)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 26)>,
+				<NRF_PSEL(SPIM_MISO, 0, 2)>;
+			low-power-enable;
+		};
+	};
+};

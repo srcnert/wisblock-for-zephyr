@@ -15,23 +15,23 @@
             "label": "build",
             "type": "shell",
             "command": "west",
-            "args": ["build",
-                     "-b", "${input:board_select}",
-                     "${input:build_type}",
-                     "--",
-                     "-DEXTRA_CONF_FILE=\"",
-                     "${input:board_conf_ble}",
-                     "${input:board_conf_mcuboot}",
-                     "${input:board_conf_sleep}",
-                     "\""
-                    ],
-            /* You can create your custom command! */
             // "args": ["build",
-            //         "-b", "rak4631",
-            //         "--sysbuild",
-            //         "--",
-            //         "-DEXTRA_CONF_FILE=\"overlay_ble.conf;overlay_mcuboot.conf;overlay_sleep_rak4631.conf\""
-            //        ],
+            //          "-b", "${input:board_select}",
+            //          "${input:build_type}",
+            //          "--",
+            //          "-DEXTRA_CONF_FILE=\"",
+            //          "${input:board_conf_ble}",
+            //          "${input:board_conf_mcuboot}",
+            //          "${input:board_conf_sleep}",
+            //          "\""
+            //         ],
+            /* You can create your custom command! */
+            "args": ["build",
+                    "-b", "rak4631",
+                    "--no-sysbuild",
+                    // "--",
+                    // "-DEXTRA_CONF_FILE=\"overlay_ble.conf;overlay_mcuboot.conf;overlay_sleep_rak4631.conf\""
+                   ],
             "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",

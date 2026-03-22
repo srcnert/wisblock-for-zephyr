@@ -30,4 +30,5 @@ manifest:
           - mcuboot
           - mbedtls
           - zcbor
+          - fatfs
           - littlefs

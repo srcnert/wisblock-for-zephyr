@@ -1,12 +1,79 @@
 / {
 	chosen {
 		zephyr,console = &cdc_acm_uart0;
-		zephyr,shell-uart = &cdc_acm_uart0;
+		zephyr,uart-mcumgr = &cdc_acm_uart0;
 	};
+
+	leds {
+		compatible = "gpio-leds";
+		blue_led: led_2 {
+			gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+			label = "Blue LED";
+		};
+		green_led: led_1 {
+			gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>;
+			label = "Green LED";
+		};
+	};
+};
+
+&reg1 {
+	regulator-initial-mode = <NRF5X_REG_MODE_DCDC>;
+};
+
+&uart0 {
+	status = "disabled";
+};
+
+&uart1 {
+	status = "disabled";
 };
 
 &zephyr_udc0 {
 	cdc_acm_uart0: cdc_acm_uart0 {
 		compatible = "zephyr,cdc-acm-uart";
+	};
+};
+
+&spi2 {
+	compatible = "nordic,nrf-spim";
+	status = "okay";
+	cs-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
+
+	pinctrl-0 = <&spi2_default>;
+	pinctrl-1 = <&spi2_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	sdhc0: sdhc@0 {
+		compatible = "zephyr,sdhc-spi-slot";
+		reg = <0>;
+		status = "okay";
+
+		mmc {
+			compatible = "zephyr,sdmmc-disk";
+			disk-name = "SD";
+			status = "okay";
+		};
+
+		spi-max-frequency = <25000000>;
+	};
+};
+
+&pinctrl {
+	spi2_default: spi2_default {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 0, 27)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 5)>,
+				<NRF_PSEL(SPIM_MISO, 0, 28)>;
+		};
+	};
+
+	spi2_sleep: spi2_sleep {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 0, 27)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 5)>,
+				<NRF_PSEL(SPIM_MISO, 0, 28)>;
+			low-power-enable;
+		};
 	};
 };
