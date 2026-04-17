@@ -102,6 +102,7 @@
                         "app/net/wifi_shell/build/zephyr/zephyr.elf",
                         "app/sensor/rak1901/build/zephyr/zephyr.elf",
                         "app/sensor/rak1904/build/zephyr/zephyr.elf",
+                        "app/sensor/rak18030/build/zephyr/zephyr.elf",
                         "app/net/wifi_shell/build/zephyr/zephyr.elf",
                         "app/ai/neuton/build/zephyr/zephyr.elf",
                     ]

@@ -138,6 +138,7 @@
                         "app/modem/sleep_test",
                         "app/sensor/rak1901",
                         "app/sensor/rak1904",
+                        "app/sensor/rak18030",
                         "app/net/wifi_shell",
                         "app/ai/neuton",
                     ]
