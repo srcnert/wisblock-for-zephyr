@@ -1,12 +1,27 @@
 sample:
   name: Power Test
 tests:
-  sample.lora.lora_test:
+  sample.lora.lora_test.rak3112:
     platform_allow:
       - rak3112/esp32s3/procpu
+    tags: rak
+    build_only: true
+  sample.lora.lora_test.rak3172:
+    platform_allow:
       - rak3172
-      - rak4631
       - rak11160
+    extra_args: EXTRA_CONF_FILE=overlay_sleep_rak3172.conf
+    tags: rak
+    build_only: true
+  sample.lora.lora_test.rak4631:
+    platform_allow:
+      - rak4631
+    extra_args: EXTRA_CONF_FILE=overlay_sleep_rak4631.conf
+    tags: rak
+    build_only: true
+  sample.lora.lora_test.rak11720:
+    platform_allow:
       - rak11720
+    extra_args: EXTRA_CONF_FILE=overlay_sleep_rak11720.conf
     tags: rak
     build_only: true
