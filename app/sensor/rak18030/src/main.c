@@ -48,10 +48,20 @@ struct dmic_cfg cfg = {
 
 const struct device *const dmic_dev = DEVICE_DT_GET(DT_NODELABEL(dmic_dev));
 
+/*
+ * Get LoRa device
+ */
+static const struct device *lora_dev = DEVICE_DT_GET(DT_ALIAS(lora0));
+
 int main(void)
 {
 	int ret;
 	uint16_t index = 0;
+
+	if (!device_is_ready(lora_dev)) {
+		printk("%s: device not ready.\n", lora_dev->name);
+		return -1;
+	}
 
 	printk("DMIC sample: %s\n", CONFIG_BOARD);
 

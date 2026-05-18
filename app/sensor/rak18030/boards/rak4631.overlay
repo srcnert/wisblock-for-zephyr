@@ -18,6 +18,14 @@
 	};
 };
 
+&uart0 {
+	status = "disabled";
+};
+
+&uart1 {
+	status = "disabled";
+};
+
 dmic_dev: &pdm0 {
 	status = "okay";
 	pinctrl-0 = <&pdm0_default>;

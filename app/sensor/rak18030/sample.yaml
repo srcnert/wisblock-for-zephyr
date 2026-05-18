@@ -1,0 +1,8 @@
+sample:
+  name: RAK18030
+tests:
+  sample.sensor.rak18030:
+    platform_allow:
+      - rak4631
+    tags: rak
+    build_only: true
