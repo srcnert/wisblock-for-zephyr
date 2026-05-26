@@ -36,6 +36,18 @@ static const char *modem_cellular_registration_status_str(enum cellular_registra
 		return "UNKNOWN";
 	case CELLULAR_REGISTRATION_REGISTERED_ROAMING:
 		return "ROAMING";
+	case CELLULAR_REGISTRATION_SMS_ONLY_HOME:
+		return "SMS_ONLY_HOME";
+	case CELLULAR_REGISTRATION_SMS_ONLY_ROAMING:
+		return "SMS_ONLY_ROAMING";
+	case CELLULAR_REGISTRATION_EMERGENCY_ONLY:
+		return "EMERGENCY_ONLY";
+	case CELLULAR_REGISTRATION_CSFB_NOT_PREFERRED_HOME:
+		return "CSFB_NOT_PREFERRED_HOME";
+	case CELLULAR_REGISTRATION_CSFB_NOT_PREFERRED_ROAMING:
+		return "CSFB_NOT_PREFERRED_ROAMING";
+	case CELLULAR_REGISTRATION_RLOS:
+		return "RLOS";
 	}
 
 	return "";
@@ -102,7 +114,7 @@ int rak_modem_get_cellular_info(rak_modem_info *modem_info)
 {
 	int ret;
 
-	ret = cellular_get_registration_status(mdm, CELLULAR_ACCESS_TECHNOLOGY_LTE_CAT_M1,
+	ret = cellular_get_registration_status(mdm, CELLULAR_ACCESS_TECHNOLOGY_E_UTRAN,
 					       &modem_info->reg_status);
 	if (ret) {
 		LOG_ERR("Failed to get registration status: %d", ret);

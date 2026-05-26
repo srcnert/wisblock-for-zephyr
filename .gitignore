@@ -8,6 +8,7 @@
 # build
 /build
 /build*
+**/build/
 /twister-out*
 
 __pycache__/

@@ -14,6 +14,18 @@
 		green-led = &green_led;
 		temp-sensor = &shtc3;
 	};
+
+	leds {
+		compatible = "gpio-leds";
+		blue_led: led_0 {
+			gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>; /* G45 */
+			label = "Blue LED";
+		};
+		green_led: led_1 {
+			gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>; /* G46 */
+			label = "Green LED";
+		};
+	};
 };
 
 &adc0 {
@@ -38,4 +50,8 @@
 		reg = <0x70>;
 		measure-mode = "normal";
 	};
+};
+
+&usb_serial {
+	status = "okay";
 };

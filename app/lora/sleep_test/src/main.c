@@ -88,12 +88,9 @@ int main(void)
 	LOG_INF("Sleep Test! %s", CONFIG_BOARD);
 
 #if defined(CONFIG_BOARD_RAK3112)
-	switch (esp_sleep_get_wakeup_cause()) {
-	case ESP_SLEEP_WAKEUP_TIMER:
+	if (esp_sleep_get_wakeup_causes() & BIT(ESP_SLEEP_WAKEUP_TIMER)) {
 		LOG_INF("Wake up from timer.");
-		break;
-	case ESP_SLEEP_WAKEUP_UNDEFINED:
-	default:
+	} else {
 		LOG_INF("Not a deep sleep reset.");
 	}
 

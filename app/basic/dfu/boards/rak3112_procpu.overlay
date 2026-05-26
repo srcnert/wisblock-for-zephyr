@@ -5,3 +5,7 @@
 		zephyr,uart-mcumgr = &usb_serial;
 	};
 };
+
+&usb_serial {
+	status = "okay";
+};

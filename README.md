@@ -1,7 +1,7 @@
 RAKwireless Zephyr Applications
 ===============================
 
-This project is prepared to use RAKwireless LoRa modules with Zephyr project. RAK3112, RAK3172, RAK4631 and RAK11720 stamp modules can be used with this repo. All sample projects are tested on RAK19007 Wisblock base board.
+This project is prepared to use RAKwireless LoRa modules with Zephyr project. RAK3112, RAK3172, RAK4631,RAK11160 and RAK11720 stamp modules can be used with this repo. All sample projects are tested on RAK19007 Wisblock base board.
 
 There is also support for the RAK5010 BLE to GPRS/LTE-M/NB-IoT industrial gateway.
 
@@ -17,7 +17,7 @@ After that, you must install toolchain via:
 nrfutil install device
 nrfutil install toolchain-manager
 # Install a specific version toolchain:
-nrfutil toolchain-manager install --ncs-version v3.1.1
+nrfutil toolchain-manager install --ncs-version v3.3.0
 # List your currently installed toolchain and learn its path:
 nrfutil toolchain-manager list
 # Launch toolchain commands in the environment directly:
@@ -31,9 +31,7 @@ cd rak-zephyr-workspace
 west update
 ```
 
-If you are RAK3112 module user, following steps must be applied to use this module.
-
-Firstly please install the Zephyr Software Development Kit (SDK) that contains toolchains
+After that, please install the Zephyr Software Development Kit (SDK) that contains toolchains
 for each of Zephyr’s supported architectures, which including compiler, assembler,
 linker and other programs required to build Zephyr applications.
 
@@ -58,6 +56,12 @@ the command below to retrieve those files.
 ```shell
 cd <go to destination rak-zephyr-workspace>
 west blobs fetch hal_espressif
+```
+
+To upgrade esptool, please apply following changes.
+```shell
+nrfutil toolchain-manager launch --shell
+pip install --upgrade "esptool>=5.0.2"
 ```
 
 This is the easier way to set up a toolchain for Zephyr RTOS or nRF Connect SDK for RAK4631(nRF52840 + SX1262) or any other boards.

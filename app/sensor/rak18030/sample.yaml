@@ -6,3 +6,9 @@ tests:
       - rak4631
     tags: rak
     build_only: true
+  sample.sensor.rak18030.sleep:
+    platform_allow:
+      - rak4631
+    extra_args: EXTRA_CONF_FILE=overlay_sleep_rak4631.conf
+    tags: rak
+    build_only: true
