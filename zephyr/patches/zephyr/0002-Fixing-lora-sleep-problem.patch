@@ -1,16 +1,16 @@
-From 6fab0efdc61eecb246590603d3534e45d4f9e248 Mon Sep 17 00:00:00 2001
+From f275207c1c5b29cfb115922a326c74b8af36489f Mon Sep 17 00:00:00 2001
 From: srcnert <sercanerat@gmail.com>
-Date: Fri, 13 Dec 2024 16:07:41 +0300
-Subject: [PATCH 2/6] Fixing lora sleep problem
+Date: Mon, 25 May 2026 17:25:50 +0300
+Subject: [PATCH 2/3] 0002-Fixing-lora-sleep-problem
 
 ---
- drivers/lora/sx126x.c | 19 +++++++++++++++++++
+ drivers/lora/loramac-node/sx126x.c | 19 +++++++++++++++++++
  1 file changed, 19 insertions(+)
 
-diff --git a/drivers/lora/sx126x.c b/drivers/lora/sx126x.c
-index aeb9efe8981..1da9386a104 100644
---- a/drivers/lora/sx126x.c
-+++ b/drivers/lora/sx126x.c
+diff --git a/drivers/lora/loramac-node/sx126x.c b/drivers/lora/loramac-node/sx126x.c
+index a1de81b0a68..9a785ad9b15 100644
+--- a/drivers/lora/loramac-node/sx126x.c
++++ b/drivers/lora/loramac-node/sx126x.c
 @@ -296,6 +296,15 @@ void SX126xSetOperatingMode(RadioOperatingModes_t mode)
  		break;
  
@@ -45,5 +45,5 @@ index aeb9efe8981..1da9386a104 100644
  	sx126x_dio1_irq_enable(&dev_data);
  
 -- 
-2.45.0
+2.52.0
 

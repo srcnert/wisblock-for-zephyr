@@ -1,22 +1,22 @@
-From 0fb7ddf7c92563ffe7a48fa6da3eaed8727cddfc Mon Sep 17 00:00:00 2001
+From e63ba861a5a9614ee26940bb0d78568334c9e064 Mon Sep 17 00:00:00 2001
 From: srcnert <sercanerat@gmail.com>
-Date: Mon, 1 Sep 2025 23:38:32 +0300
-Subject: [PATCH] Fixing Apollo3 UART sleep problem
+Date: Mon, 25 May 2026 17:36:03 +0300
+Subject: [PATCH 3/3] Fixing Apollo3 UART sleep problem
 
 ---
- drivers/pinctrl/pinctrl_ambiq.c               | 39 +++++++++++--------
- drivers/serial/uart_pl011.c                   | 20 ----------
+ drivers/pinctrl/pinctrl_ambiq.c               | 38 +++++++++++--------
+ drivers/serial/uart_pl011.c                   | 25 ------------
  drivers/serial/uart_pl011_ambiq.h             |  6 +++
- drivers/serial/uart_pl011_registers.h         | 20 ++++++++++
+ drivers/serial/uart_pl011_registers.h         | 25 ++++++++++++
  .../pinctrl/ambiq,apollo3-pinctrl.yaml        |  2 +-
  soc/ambiq/apollo3x/pinctrl_soc.h              |  3 ++
- 6 files changed, 53 insertions(+), 37 deletions(-)
+ 6 files changed, 57 insertions(+), 42 deletions(-)
 
 diff --git a/drivers/pinctrl/pinctrl_ambiq.c b/drivers/pinctrl/pinctrl_ambiq.c
-index b6c3e9ff676..a10877db737 100644
+index 232976ca991..61b58dc9b3b 100644
 --- a/drivers/pinctrl/pinctrl_ambiq.c
 +++ b/drivers/pinctrl/pinctrl_ambiq.c
-@@ -14,25 +14,32 @@ static void pinctrl_configure_pin(const pinctrl_soc_pin_t *pin)
+@@ -68,25 +68,31 @@ static void pinctrl_configure_pin(const pinctrl_soc_pin_t *pin)
  	am_hal_gpio_pincfg_t pin_config = {0};
  
  #if defined(CONFIG_SOC_SERIES_APOLLO3X)
@@ -30,14 +30,14 @@ index b6c3e9ff676..a10877db737 100644
 -	pin_config.eDriveStrength = pin->drive_strength;
 -	pin_config.uNCE = pin->nce;
 -	pin_config.eCEpol = pin->nce_pol;
-+	if(pin->low_power_enable == 0) {
++	if (pin->low_power_enable == 0) {
 +		pin_config.uFuncSel = pin->alt_func;
 +		pin_config.eGPInput =
 +			pin->input_enable ? AM_HAL_GPIO_PIN_INPUT_ENABLE : AM_HAL_GPIO_PIN_INPUT_NONE;
 +		pin_config.eGPOutcfg = pin->push_pull    ? AM_HAL_GPIO_PIN_OUTCFG_PUSHPULL
-+					: pin->open_drain ? AM_HAL_GPIO_PIN_OUTCFG_OPENDRAIN
-+					: pin->tristate   ? AM_HAL_GPIO_PIN_OUTCFG_TRISTATE
-+							: AM_HAL_GPIO_PIN_OUTCFG_DISABLE;
++				       : pin->open_drain ? AM_HAL_GPIO_PIN_OUTCFG_OPENDRAIN
++				       : pin->tristate   ? AM_HAL_GPIO_PIN_OUTCFG_TRISTATE
++							 : AM_HAL_GPIO_PIN_OUTCFG_DISABLE;
 +		pin_config.eDriveStrength = pin->drive_strength;
 +		pin_config.uNCE = pin->nce;
 +		pin_config.eCEpol = pin->nce_pol;
@@ -57,8 +57,7 @@ index b6c3e9ff676..a10877db737 100644
 +		} else if (pin->bias_pull_down) {
 +			pin_config.ePullup = AM_HAL_GPIO_PIN_PULLDOWN;
 +		}
-+	}
-+	else {
++	} else {
 +		pin_config.uFuncSel = 3;
 +		pin_config.eDriveStrength = AM_HAL_GPIO_PIN_DRIVESTRENGTH_2MA;
 +		pin_config.eGPOutcfg = AM_HAL_GPIO_PIN_OUTCFG_DISABLE;
@@ -66,13 +65,18 @@ index b6c3e9ff676..a10877db737 100644
  #else
  	pin_config.GP.cfg_b.uFuncSel = pin->alt_func;
 diff --git a/drivers/serial/uart_pl011.c b/drivers/serial/uart_pl011.c
-index 624ae45f5c5..4bdf0849100 100644
+index 2ee4f5a3c6d..8eddaeecff2 100644
 --- a/drivers/serial/uart_pl011.c
 +++ b/drivers/serial/uart_pl011.c
-@@ -46,26 +46,6 @@
+@@ -34,31 +34,6 @@
  
- #include "uart_pl011_raspberrypi_pico.h"
+ #include "uart_pl011_registers.h"
  
+-#define PL011_USE_IRQ                                                                              \
+-	(CONFIG_UART_INTERRUPT_DRIVEN &&                                                           \
+-	 (DT_ANY_COMPAT_HAS_PROP_STATUS_OKAY(arm_pl011, interrupts) ||                             \
+-	  DT_ANY_COMPAT_HAS_PROP_STATUS_OKAY(arm_sbsa_uart, interrupts)))
+-
 -struct pl011_config {
 -	DEVICE_MMIO_ROM;
 -#if defined(CONFIG_PINCTRL)
@@ -85,22 +89,22 @@ index 624ae45f5c5..4bdf0849100 100644
 -	const struct device *clock_dev;
 -	clock_control_subsys_t clock_id;
 -#endif
--#ifdef CONFIG_UART_INTERRUPT_DRIVEN
+-#if PL011_USE_IRQ
 -	uart_irq_config_func_t irq_config_func;
 -#endif
 -	bool fifo_disable;
 -	int (*clk_enable_func)(const struct device *dev, uint32_t clk);
--	int (*pwr_on_func)(void);
+-	int (*pwr_on_func)(const struct device *dev);
 -};
 -
  /* Device data structure */
  struct pl011_data {
  	DEVICE_MMIO_RAM;
 diff --git a/drivers/serial/uart_pl011_ambiq.h b/drivers/serial/uart_pl011_ambiq.h
-index 6db7e297db4..3836d90d86d 100644
+index 69219963f4c..fabac075dd3 100644
 --- a/drivers/serial/uart_pl011_ambiq.h
 +++ b/drivers/serial/uart_pl011_ambiq.h
-@@ -83,6 +83,8 @@ static int uart_ambiq_pm_action(const struct device *dev, enum pm_device_action
+@@ -85,6 +85,8 @@ static int uart_ambiq_pm_action(const struct device *dev, enum pm_device_action
  {
  	int key;
  
@@ -109,7 +113,7 @@ index 6db7e297db4..3836d90d86d 100644
  	/*Uart module number*/
  	uint32_t ui32Module = ((uint32_t)get_uart(dev) == UART0_BASE) ? 0 : 1;
  
-@@ -112,6 +114,8 @@ static int uart_ambiq_pm_action(const struct device *dev, enum pm_device_action
+@@ -114,6 +116,8 @@ static int uart_ambiq_pm_action(const struct device *dev, enum pm_device_action
  		/* Enable power control.*/
  		am_hal_pwrctrl_periph_enable(eUARTPowerModule);
  
@@ -118,7 +122,7 @@ index 6db7e297db4..3836d90d86d 100644
  		/* Restore UART registers*/
  		key = irq_lock();
  
-@@ -159,6 +163,8 @@ static int uart_ambiq_pm_action(const struct device *dev, enum pm_device_action
+@@ -161,6 +165,8 @@ static int uart_ambiq_pm_action(const struct device *dev, enum pm_device_action
  		 */
  		UARTn(ui32Module)->CR = 0;
  
@@ -128,13 +132,18 @@ index 6db7e297db4..3836d90d86d 100644
  		am_hal_pwrctrl_periph_disable(eUARTPowerModule);
  		return 0;
 diff --git a/drivers/serial/uart_pl011_registers.h b/drivers/serial/uart_pl011_registers.h
-index a46509e18b6..7a02ab04930 100644
+index a46509e18b6..62c30041f15 100644
 --- a/drivers/serial/uart_pl011_registers.h
 +++ b/drivers/serial/uart_pl011_registers.h
-@@ -11,6 +11,26 @@
+@@ -11,6 +11,31 @@
  
  #include <zephyr/device.h>
  
++#define PL011_USE_IRQ                                                                              \
++	(CONFIG_UART_INTERRUPT_DRIVEN &&                                                           \
++	 (DT_ANY_COMPAT_HAS_PROP_STATUS_OKAY(arm_pl011, interrupts) ||                             \
++	  DT_ANY_COMPAT_HAS_PROP_STATUS_OKAY(arm_sbsa_uart, interrupts)))
++
 +struct pl011_config {
 +	DEVICE_MMIO_ROM;
 +#if defined(CONFIG_PINCTRL)
@@ -147,19 +156,19 @@ index a46509e18b6..7a02ab04930 100644
 +	const struct device *clock_dev;
 +	clock_control_subsys_t clock_id;
 +#endif
-+#ifdef CONFIG_UART_INTERRUPT_DRIVEN
++#if PL011_USE_IRQ
 +	uart_irq_config_func_t irq_config_func;
 +#endif
 +	bool fifo_disable;
 +	int (*clk_enable_func)(const struct device *dev, uint32_t clk);
-+	int (*pwr_on_func)(void);
++	int (*pwr_on_func)(const struct device *dev);
 +};
 +
  /*
   * UART PL011 register map structure
   */
 diff --git a/dts/bindings/pinctrl/ambiq,apollo3-pinctrl.yaml b/dts/bindings/pinctrl/ambiq,apollo3-pinctrl.yaml
-index 5093122303f..3510fc17072 100644
+index cc4dc08092e..c83e949031d 100644
 --- a/dts/bindings/pinctrl/ambiq,apollo3-pinctrl.yaml
 +++ b/dts/bindings/pinctrl/ambiq,apollo3-pinctrl.yaml
 @@ -66,7 +66,7 @@ child-binding:
@@ -193,5 +202,5 @@ index f3f562ae802..a341cc3a150 100644
  
  /**
 -- 
-2.39.5 (Apple Git-154)
+2.52.0
 

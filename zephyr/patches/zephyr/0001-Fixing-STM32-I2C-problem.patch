@@ -1,22 +1,21 @@
-From 1e613e4d233fafd175cccd54683cece9331284b2 Mon Sep 17 00:00:00 2001
-From: Sercan Erat <sercanerat@gmail.com>
-Date: Sat, 23 Aug 2025 16:09:18 +0300
-Subject: [PATCH] Fixing STM32 I2C problem
+From c2183a2dba365adcdc545fdfcbc346c3d3192e95 Mon Sep 17 00:00:00 2001
+From: srcnert <sercanerat@gmail.com>
+Date: Mon, 25 May 2026 17:20:15 +0300
+Subject: [PATCH 1/3] Fixing STM32 I2C problem
 
 ---
- drivers/i2c/i2c_ll_stm32_common.c | 40 +++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ drivers/i2c/i2c_stm32_common.c | 39 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/i2c/i2c_ll_stm32_common.c b/drivers/i2c/i2c_ll_stm32_common.c
-index e94ae5ec252..4c0303c00dd 100644
---- a/drivers/i2c/i2c_ll_stm32_common.c
-+++ b/drivers/i2c/i2c_ll_stm32_common.c
-@@ -17,6 +17,43 @@ LOG_MODULE_REGISTER(i2c_ll_stm32_common);
+diff --git a/drivers/i2c/i2c_stm32_common.c b/drivers/i2c/i2c_stm32_common.c
+index df84119a85f..c6d6edffedb 100644
+--- a/drivers/i2c/i2c_stm32_common.c
++++ b/drivers/i2c/i2c_stm32_common.c
+@@ -17,6 +17,42 @@ LOG_MODULE_REGISTER(i2c_ll_stm32_common);
  
- #include "i2c_ll_stm32.h"
+ #include "i2c_stm32.h"
  
 +#if defined(CONFIG_SOC_SERIES_STM32WLX)
-+// https://github.com/hardwario/sticker-zephyr/commit/ccf70f350abbfa91bb9bbbc69efbad2868ab182e#diff-f46c0e00cabed812e7aa6f6672d36df7a914ee1f398224bf614ec3af6ad1c8ac
 +static int i2c_stm32_reinit_timing(const struct device *dev)
 +{
 +	int ret;
@@ -55,7 +54,7 @@ index e94ae5ec252..4c0303c00dd 100644
  #ifdef CONFIG_I2C_STM32_COMBINED_INTERRUPT
  void i2c_stm32_combined_isr(void *arg)
  {
-@@ -98,6 +135,9 @@ int i2c_stm32_pm_action(const struct device *dev, enum pm_device_action action)
+@@ -98,6 +134,9 @@ int i2c_stm32_pm_action(const struct device *dev, enum pm_device_action action)
  
  	switch (action) {
  	case PM_DEVICE_ACTION_RESUME:
@@ -66,5 +65,5 @@ index e94ae5ec252..4c0303c00dd 100644
  		break;
  	case PM_DEVICE_ACTION_SUSPEND:
 -- 
-2.39.5 (Apple Git-154)
+2.52.0
 
