@@ -1,6 +1,6 @@
 patches:
   - path: zephyr/0001-Fixing-STM32-I2C-problem.patch
-    sha256sum: 7c467b05aa766ed1648de612588ec1179b3db1762bba463094675e8979bae619
+    sha256sum: 9252cef08ce3fbd5568b6e08b9adcb66e088765f970c782641a39a594e159410
     module: zephyr
     author: Sercan ERAT
     email: sercanerat@gmail.com
@@ -9,7 +9,7 @@ patches:
     comments: |
       Fixing RAK3172 i2c not working correctly with PM problem.
   - path: zephyr/0002-Fixing-lora-sleep-problem.patch
-    sha256sum: 175b7025345e825e04644b82efa427f924a83877f0807eb7258164ab14aeabbe
+    sha256sum: 3e4f9bbe7c1ce73949892f86247f6bccf733ab11b66f2911d1bd5c70fef3dc99
     module: zephyr
     author: Sercan ERAT
     email: sercanerat@gmail.com
@@ -36,7 +36,7 @@ patches:
     comments: |
       Fixing RAK11720 ADC problem.
   - path: zephyr/0005-Fixing-Apollo3-UART-sleep-problem.patch
-    sha256sum: 534af0e43ac489264029634d7be0bfe662f3e1063035bb0dc5ea4de9e5b6f26a
+    sha256sum: 42537e26a4e58816fa148979228e2b4da472cc65460d448f0dc0131dfbef9267
     module: zephyr
     author: Sercan ERAT
     email: sercanerat@gmail.com
@@ -44,13 +44,3 @@ patches:
     upstreamable: false
     comments: |
       Fixing RAK11720 UART sleep problem.
-  - path: zephyr/0006-Fixing-STM32-Usart-PM-problem.patch
-    merge-pr: https://github.com/zephyrproject-rtos/zephyr/pull/95292
-    sha256sum: 4ffafe4bfe83a0c294a27a94e2ba31407bce892349f20d18bc17a4b023d62aae
-    module: zephyr
-    author: Sercan ERAT
-    email: sercanerat@gmail.com
-    date: 2025-09-01
-    upstreamable: false
-    comments: |
-      Fixing RAK3172 Usart PM problem.
