@@ -31,4 +31,4 @@ manifest:
           - mbedtls
           - zcbor
           - littlefs
-          - tf-psa-crypto  # paired with mbedtls for the BT host's PSA crypto backend
+          - tf-psa-crypto
