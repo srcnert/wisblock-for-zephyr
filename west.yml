@@ -6,29 +6,12 @@ manifest:
     west-commands: scripts/west-commands.yml
 
   remotes:
-    - name: zephyrproject-rtos
-      url-base: https://github.com/zephyrproject-rtos
+    - name: ncs
+      url-base: https://github.com/nrfconnect
 
   projects:
-    - name: zephyr
-      remote: zephyrproject-rtos
-      revision: v4.4.1
-      import:
-        # By using name-allowlist we can clone only the modules that are
-        # strictly needed by the wisblock-for-zephyr applications.
-        name-allowlist:
-          - cmsis
-          - cmsis_6
-          - segger
-          - loramac-node
-          - hal_espressif
-          - hal_nordic
-          - hal_ambiq
-          - hal_st
-          - hal_stm32
-          - tinycrypt
-          - mcuboot
-          - mbedtls
-          - zcbor
-          - littlefs
-          - tf-psa-crypto
+    - name: nrf
+      repo-path: sdk-nrf
+      remote: ncs
+      revision: v3.3.0
+      import: true
