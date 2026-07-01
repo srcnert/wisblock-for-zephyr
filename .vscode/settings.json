@@ -1,6 +1,6 @@
 {
   /* Environment variables for c_cpp_properties.json  */
-  "ZEPHYR_WORKSPACE": "/your/path/to/rak-zephyr-workspace",
+  "ZEPHYR_WORKSPACE": "/your/path/to/wisblock-zephyr-workspace",
 
   /* Set TOOLCHAIN PATH according to your OS. */
   "TOOLCHAIN_BASE": "/your/path/to/toolchains/0123456789",
@@ -11,7 +11,7 @@
   /* Environment variables */
   "ZEPHYR_BASE": "${config:ZEPHYR_WORKSPACE}/zephyr",
   "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr",
-  "ZEPHYR_SDK_INSTALL_DIR": "${config:TOOLCHAIN_BASE}/opt/zephyr-sdk",
+  "ZEPHYR_SDK_INSTALL_DIR": "${config:TOOLCHAIN_BASE}/opt/zephyr-sdk/gnu",
 
   /* Terminal paths */
   "terminal.integrated.env.windows": {

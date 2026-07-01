@@ -1,9 +1,9 @@
-RAKwireless Zephyr Applications
-===============================
+Wisblock for Zephyr
+===================
 
-This project is prepared to use RAKwireless LoRa modules with Zephyr project. RAK3112, RAK3172, RAK4631,RAK11160 and RAK11720 stamp modules can be used with this repo. All sample projects are tested on RAK19007 Wisblock base board.
+This project is prepared to use RAKwireless Wisblock LoRa modules with Zephyr project. All sample projects are tested on RAK19007 Wisblock base board.
 
-There is also support for the RAK5010 BLE to GPRS/LTE-M/NB-IoT industrial gateway.
+There is also support for the RAK5010 BLE to GPRS/LTE-M/NB-IoT industrial gateway card.
 
 The main idea of the repo is inspired by https://github.com/zephyrproject-rtos/example-application.
 
@@ -23,11 +23,11 @@ nrfutil toolchain-manager list
 # Launch toolchain commands in the environment directly:
 nrfutil toolchain-manager launch --terminal
 # Go to setup path:
-cd <go to destination you wanna setup rak-zephyr-workspace>
-# Initialize rak-zephyr-workspace:
-west init -m https://github.com/srcnert/rak-zephyr-app rak-zephyr-workspace
+cd <go to destination you wanna setup wisblock-zephyr-workspace>
+# Initialize wisblock-zephyr-workspace:
+west init -m https://github.com/srcnert/wisblock-for-zephyr wisblock-zephyr-workspace
 # Update zephyr modules:
-cd rak-zephyr-workspace
+cd wisblock-zephyr-workspace
 west update
 ```
 
@@ -44,8 +44,8 @@ must apply following commands:
 pip install tqdm
 # Remove current zephyr-sdk from your toolchain. (Please use your own toolchain address!)
 rm -rf /your/path/to/toolchains/0123456789/opt/zephyr-sdk
-# Go to rak-zephyr-workspace folder.
-cd <go to destination rak-zephyr-workspace>
+# Go to wisblock-zephyr-workspace folder.
+cd <go to destination wisblock-zephyr-workspace>
 # Install zephyr-sdk for each of Zephyr’s supported architectures.
 west sdk install -d /your/path/to/toolchains/0123456789/opt/zephyr-sdk -t arm-zephyr-eabi riscv64-zephyr-elf xtensa-espressif_esp32s3_zephyr-elf
 ```
@@ -54,7 +54,7 @@ Espressif HAL requires WiFi and Bluetooth binary blobs in order work. Run
 the command below to retrieve those files.
 
 ```shell
-cd <go to destination rak-zephyr-workspace>
+cd <go to destination wisblock-zephyr-workspace>
 west blobs fetch hal_espressif
 ```
 
@@ -73,7 +73,7 @@ https://docs.zephyrproject.org/latest/develop/getting_started/index.html
 To patch addressed issues, run the following command:
 
 ```shell
-cd rak-zephyr-app
+cd wisblock-for-zephyr
 west patch_rak
 ```
 
@@ -90,10 +90,10 @@ west patch list
 ```
 
 ### Building and running
-To build an application, open '../rak-zephyr-workspace/rak-zephyr-app' directory on your Visual Studio Code app. After that, please open '../.vscode/settings.json' file and set following parameters:
+To build an application, open '../wisblock-zephyr-workspace/wisblock-for-zephyr' directory on your Visual Studio Code app. After that, please open '../.vscode/settings.json' file and set following parameters:
 
 ```shell
-"ZEPHYR_WORKSPACE": "/your/path/to/rak-zephyr-workspace",
+"ZEPHYR_WORKSPACE": "/your/path/to/wisblock-zephyr-workspace",
 
 "TOOLCHAIN_BASE":   "/your/path/to/toolchains/0123456789",
 "JLINK_PATH":       "/your/path/to/JLink_V123",
@@ -147,7 +147,7 @@ If all steps are completed successfully, run following command and see that RAK3
 openocd -f board/esp32s3-builtin.cfg
 ```
 
-You can fing GDB tool inside your "/your/path/to/toolchains/0123456789/opt/zephyr-sdk/xtensa-espressif_esp32s3_zephyr-elf/bin" path and the exe name is "xtensa-espressif_esp32s3_zephyr-elf-gdb". There is no need to extra set up for GDB.
+You can fing GDB tool inside your "/your/path/to/toolchains/0123456789/opt/zephyr-sdk/gnu/xtensa-espressif_esp32s3_zephyr-elf/bin" path and the exe name is "xtensa-espressif_esp32s3_zephyr-elf-gdb". There is no need to extra set up for GDB.
 'Cortex-Debug' extension is used with "xtensa-espressif_esp32s3_zephyr-elf-gdb" exe to debug rak3112 module.
 Please select "Cortex Debug XTENSA" configuration at VS Code IDE "Run and Dubug" section.
 

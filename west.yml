@@ -2,7 +2,7 @@
 
 manifest:
   self:
-    path: rak-zephyr-app
+    path: wisblock-for-zephyr
     west-commands: scripts/west-commands.yml
 
   remotes:
@@ -15,7 +15,7 @@ manifest:
       revision: v4.4.1
       import:
         # By using name-allowlist we can clone only the modules that are
-        # strictly needed by the rak-zephyr-app applications.
+        # strictly needed by the wisblock-for-zephyr applications.
         name-allowlist:
           - cmsis
           - cmsis_6
