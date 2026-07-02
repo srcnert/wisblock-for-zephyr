@@ -85,7 +85,7 @@
             "id": "board_select",
             "type": "pickString",
             "description": "Select the board:",
-            "options": ["rak3112/esp32s3/procpu","rak3172", "rak4631", "rak5010", "rak11160", "rak11720"]
+            "options": ["rak3112/esp32s3/procpu","rak3172", "rak3362/nrf54l15/cpuapp", "rak4631", "rak5010", "rak11160", "rak11720"]
         },
         {
             "id": "build_type",

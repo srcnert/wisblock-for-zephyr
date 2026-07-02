@@ -1,0 +1,32 @@
+/*
+ * Copyright (c) 2026 RAKwireless Technology Limited
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/pinctrl/nrf-pinctrl.h>
+
+&pinctrl {
+	/*
+	 * PWM pinctrl states are intentionally empty. board.c computes pin
+	 * assignments at compile time from installed shield DT nodes and
+	 * installs them via pinctrl_update_states() at boot, before the
+	 * PWM driver applies pinctrl at POST_KERNEL.
+	 */
+	pwm20_default: pwm20_default {
+	};
+
+	pwm20_sleep: pwm20_sleep {
+	};
+
+	pwm21_default: pwm21_default {
+	};
+
+	pwm21_sleep: pwm21_sleep {
+	};
+
+	pwm22_default: pwm22_default {
+	};
+
+	pwm22_sleep: pwm22_sleep {
+	};
+};
