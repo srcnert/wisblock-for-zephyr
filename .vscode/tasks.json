@@ -117,6 +117,7 @@
             "description": "Select the sleep overlay:",
             "options": ["no_overlay.conf",
                         "overlay_sleep_rak3172.conf",
+                        "overlay_sleep_rak3362.conf",
                         "overlay_sleep_rak4631.conf",
                         "overlay_sleep_rak5010.conf",
                         "overlay_sleep_rak11720.conf"],

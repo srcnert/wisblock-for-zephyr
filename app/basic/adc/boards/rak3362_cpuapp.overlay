@@ -1,0 +1,7 @@
+#include <zephyr/dt-bindings/adc/wisblock-adc.h>
+
+/ {
+	zephyr,user {
+		io-channels = <&wisblock_adc WISBLOCK_ADC_AIN0>; // WisBlock AIN0
+	};
+};

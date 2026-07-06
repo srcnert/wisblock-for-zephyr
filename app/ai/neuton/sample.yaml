@@ -3,6 +3,7 @@ sample:
 tests:
   sample.neuton_ai:
     platform_allow:
+      - rak3362/nrf54l15/cpuapp
       - rak4631
       - rak11720
     tags: rak

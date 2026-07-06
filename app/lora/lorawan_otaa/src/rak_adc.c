@@ -20,7 +20,7 @@ double correction_ratio = 1.1;
 double correction_ratio = 1.1;
 #endif
 
-#if defined(CONFIG_BOARD_RAK4631)
+#if defined(CONFIG_BOARD_RAK4631) || defined(CONFIG_BOARD_RAK3362)
 double correction_ratio = 1.1;
 #endif
 

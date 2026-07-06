@@ -4,6 +4,7 @@ tests:
   sample.basic.uart_sleep:
     platform_allow:
       - rak3172
+      - rak3362/nrf54l15/cpuapp
       - rak4631
       - rak11160
     tags: rak

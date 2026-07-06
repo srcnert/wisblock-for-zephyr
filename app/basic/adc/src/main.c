@@ -117,7 +117,7 @@ int main(void)
 				   (3.0));
 #endif
 
-#if defined(CONFIG_BOARD_RAK4631)
+#if defined(CONFIG_BOARD_RAK4631) || defined(CONFIG_BOARD_RAK3362)
 			bat_lvl = ((vref * (((double)val) / ((double)pow(2, resolution))) * (5.0)) /
 				   (3.0));
 #endif

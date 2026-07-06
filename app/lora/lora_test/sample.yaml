@@ -13,6 +13,12 @@ tests:
     extra_args: EXTRA_CONF_FILE=overlay_sleep_rak3172.conf
     tags: rak
     build_only: true
+  sample.lora.lora_test.rak3362:
+    platform_allow:
+      - rak3362/nrf54l15/cpuapp
+    extra_args: EXTRA_CONF_FILE=overlay_sleep_rak3362.conf
+    tags: rak
+    build_only: true
   sample.lora.lora_test.rak4631:
     platform_allow:
       - rak4631

@@ -5,6 +5,7 @@ tests:
     platform_allow:
       - rak3112/esp32s3/procpu
       - rak3172
+      - rak3362/nrf54l15/cpuapp
       - rak4631
       - rak11160
       - rak11720

@@ -12,6 +12,7 @@ tests:
   sample.basic.dfu.ble:
     platform_allow:
       - rak3112/esp32s3/procpu
+      - rak3362/nrf54l15/cpuapp
       - rak4631
       - rak5010
       - rak11720

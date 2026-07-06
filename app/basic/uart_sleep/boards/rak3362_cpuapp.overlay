@@ -1,0 +1,9 @@
+/ {
+	aliases {
+		test-uart = &uart20;
+	};
+};
+
+&uart21 {
+	status = "disabled";
+};

@@ -15,6 +15,7 @@
 		zephyr,code-partition = &slot0_partition;
 		zephyr,sram = &cpuapp_sram;
 		zephyr,flash = &cpuapp_rram;
+		zephyr,flash-controller = &rram_controller;
 	};
 
 	/*
