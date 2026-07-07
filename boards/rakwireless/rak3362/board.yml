@@ -4,3 +4,8 @@ board:
   vendor: rakwireless
   socs:
   - name: nrf54l15
+    variants:
+    - name: ns
+      cpucluster: cpuapp
+    - name: xip
+      cpucluster: cpuflpr

@@ -65,4 +65,4 @@ References
 .. target-notes::
 
 .. _RAK3162 Product Page:
-   https://docs.rakwireless.com/Product-Categories/WisDuo/RAK3162/Overview/
+   https://docs.rakwireless.com/product-categories/wisblock/rak3362/overview

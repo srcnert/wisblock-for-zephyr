@@ -1,4 +1,4 @@
-# Copyright (c) 2026 RAK Wireless
+# Copyright (c) 2026 RAKwireless Technology Limited
 # SPDX-License-Identifier: Apache-2.0
 
 if BOARD_RAK3362_NRF54L15_CPUAPP
@@ -11,14 +11,15 @@ config ROM_START_OFFSET
 
 endif # BOARD_RAK3362_NRF54L15_CPUAPP
 
-if BOARD_RAK3362
+if BOARD_RAK3362_NRF54L15_CPUAPP_NS
 
-config WISBLOCK_CORE_BOARD_VENDOR
-	string
-	default "RAKwireless"
+config BOARD_RAK3362
+	select USE_DT_CODE_PARTITION
 
-config WISBLOCK_CORE_BOARD_NAME
-	string
-	default "RAK3362 WisBlock Core Module"
+config HAS_BT_CTLR
+	default BT
 
-endif # BOARD_RAK3362
+config BUILD_WITH_TFM
+	default y
+
+endif # BOARD_RAK3362_NRF54L15_CPUAPP_NS
