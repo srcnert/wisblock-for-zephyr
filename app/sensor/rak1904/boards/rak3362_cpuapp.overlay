@@ -1,13 +1,18 @@
 / {
 	chosen {
-		zephyr,console = &uart21;
-		zephyr,shell-uart = &uart21;
+		zephyr,console = &uart20;
+		zephyr,shell-uart = &uart20;
 	};
 };
 
 &wisblock_i2c1 {
+	status = "okay";
 	lis3dh: lis3dh@18 {
 		compatible = "st,lis3dh", "st,lis2dh";
 		reg = <0x18>;
 	};
+};
+
+&uart20 {
+	status = "okay";
 };

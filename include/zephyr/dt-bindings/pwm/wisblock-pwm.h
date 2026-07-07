@@ -19,13 +19,13 @@
  * @{
  */
 
-#define WISBLOCK_PWM_IO1	0 /**< PWM channel for IO1 */
-#define WISBLOCK_PWM_IO2	1 /**< PWM channel for IO2 */
-#define WISBLOCK_PWM_IO3	2 /**< PWM channel for IO3 */
-#define WISBLOCK_PWM_IO4	3 /**< PWM channel for IO4 */
-#define WISBLOCK_PWM_IO5	4 /**< PWM channel for IO5 */
-#define WISBLOCK_PWM_IO6	5 /**< PWM channel for IO6 */
-#define WISBLOCK_PWM_IO7	6 /**< PWM channel for IO7 */
+#define WISBLOCK_PWM_IO1 0 /**< PWM channel for IO1 */
+#define WISBLOCK_PWM_IO2 1 /**< PWM channel for IO2 */
+#define WISBLOCK_PWM_IO3 2 /**< PWM channel for IO3 */
+#define WISBLOCK_PWM_IO4 3 /**< PWM channel for IO4 */
+#define WISBLOCK_PWM_IO5 4 /**< PWM channel for IO5 */
+#define WISBLOCK_PWM_IO6 5 /**< PWM channel for IO6 */
+#define WISBLOCK_PWM_IO7 6 /**< PWM channel for IO7 */
 
 /** @} */
 

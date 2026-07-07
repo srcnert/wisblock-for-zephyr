@@ -1,14 +1,19 @@
 / {
 	chosen {
-		zephyr,console = &uart21;
-		zephyr,shell-uart = &uart21;
+		zephyr,console = &uart20;
+		zephyr,shell-uart = &uart20;
 	};
 };
 
 &wisblock_i2c1 {
+	status = "okay";
 	shtc3@70 {
 		compatible = "sensirion,shtc3", "sensirion,shtcx";
 		reg = <0x70>;
 		measure-mode = "normal";
 	};
+};
+
+&uart20 {
+	status = "okay";
 };

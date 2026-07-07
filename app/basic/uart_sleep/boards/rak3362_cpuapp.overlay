@@ -4,6 +4,6 @@
 	};
 };
 
-&uart21 {
-	status = "disabled";
+&uart20 {
+	status = "okay";
 };

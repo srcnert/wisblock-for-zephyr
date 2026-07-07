@@ -2,7 +2,7 @@
 
 / {
 	chosen {
-		zephyr,console = &uart21;
+		zephyr,console = &uart20;
 	};
 
 	aliases {
@@ -21,4 +21,8 @@
 			label = "Green LED";
 		};
 	};
+};
+
+&uart20 {
+	status = "okay";
 };

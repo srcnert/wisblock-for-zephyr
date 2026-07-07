@@ -3,8 +3,8 @@
 
 / {
 	chosen {
-		zephyr,console = &uart21;
-		zephyr,uart-mcumgr = &uart21;
+		zephyr,console = &uart20;
+		zephyr,uart-mcumgr = &uart20;
 	};
 
 	zephyr,user {
@@ -31,9 +31,14 @@
 };
 
 &wisblock_i2c1 {
+	status = "okay";
 	shtc3: shtc3@70 {
 		compatible = "sensirion,shtc3", "sensirion,shtcx";
 		reg = <0x70>;
 		measure-mode = "normal";
 	};
+};
+
+&uart20 {
+	status = "okay";
 };
